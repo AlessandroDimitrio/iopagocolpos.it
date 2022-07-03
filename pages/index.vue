@@ -4,14 +4,14 @@
             <div class="fixed inset-x-0 w-full h-full z-40 bg-black bg-opacity-70" v-if="showModal" @click="showModal = false"></div>
         </transition>
         <transition name="pop" appear>
-            <div class="top-20 modal z-50 absolute max-w-md shadow-lg inset-x-0 p-10 mx-auto bg-white rounded-lg" v-if="showModal">
+            <div class="top-20 modal z-50 mx-5 sm:mx-auto absolute max-w-md shadow-lg inset-x-0 p-10 bg-white rounded-lg" v-if="showModal">
                 <h3 class="font-extrabold text-3xl mont">Aggiungi attività</h3>
-                <p class="text-gray-500 leading-tight mt-2">E' possibile aggiunger l'attività attraverso il modulo di ricerca Google</p>
-                <input type="text" placeholder="Cerca attività" class="border border-black rounded-lg px-6 py-2 mt-10">
+                <p class="text-gray-500 leading-tight mt-1">E' possibile aggiunger l'attività attraverso il modulo di ricerca Google</p>
+                <input type="text" placeholder="Cerca attività" class="border border-gray-300 shadow-sm focus:outline-none rounded-lg px-6 py-3 mt-10">
             </div>
         </transition>
     
-        <div class="p-5 bg-white border-b border-gray-300 justify-between flex flex-col sm:flex-row items-start sm:items-center">
+        <div class="px-5 py-10 sm:py-5 bg-white border-b border-gray-300 justify-between flex flex-col sm:flex-row items-start sm:items-center">
             <div>
                 <p class="text-2xl font-extrabold mont">Iopagocolpos.it</p>
                 <p class="text-sm text-gray-500">Il portale per segnalare attività che non accettano pagamenti con carta</p>
