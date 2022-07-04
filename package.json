@@ -9,15 +9,19 @@
     "generate": "nuxt generate"
   },
   "dependencies": {
+    "chart.js": "^3.8.0",
     "core-js": "2.5.7",
     "nuxt": "^2.1.0",
     "vue": "^2.6.14",
+    "vue-chartjs": "^4.1.1",
     "vue-server-renderer": "^2.6.14",
+    "vue-spinkit": "^2.0.0",
     "vue-template-compiler": "^2.6.14",
     "vue2-google-maps": "0.10.2",
     "webpack": "^4.46.0"
   },
   "devDependencies": {
+    "@nuxtjs/google-fonts": "^2.0.0",
     "@nuxtjs/tailwindcss": "^4.2.1",
     "postcss": "^8.4.4"
   },

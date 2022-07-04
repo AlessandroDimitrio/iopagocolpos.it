@@ -12,15 +12,15 @@
         </transition>
 
         <div class="px-5 py-10 sm:py-5 bg-white border-b border-gray-300 justify-between flex flex-col sm:flex-row items-start sm:items-center">
-            <div>
-                <p class="text-2xl font-extrabold mont">iopagocolpos.it</p>
-                <p class="text-sm text-gray-500">Il portale per segnalare attività che non accettano pagamenti con carta</p>
+            <div class="flex flex-row items-center space-x-10">
+                <img class="h-16" src="/pos_logo.svg" alt="">
+                <p class="text-sm text-gray-500 w-1/3">Il portale per segnalare attività che non accettano pagamenti con carta</p>
             </div>
             <DonateButton></DonateButton>
             <!-- <button class="mt-2 sm:mt-0 font-medium bg-black rounded-lg text-white px-6 py-2" @click="showModal = true">Contribuisci</button> -->
         </div>
         <div class="flex flex-row h-screen">
-            <StoreList :places="places" @search="search" @selected="currentPlace = $event" :currentPlace="currentPlace"></StoreList>
+            <StoreList :isLoading="isLoading" :places="places" @search="search" @selected="currentPlace = $event" :currentPlace="currentPlace"></StoreList>
             <div class="w-full h-full flex justify-center items-center bg-gray-50">
                 <GmapMap ref="mapRef" :center="{ lat: 41.89422107929427, lng: 12.436617991051996 }" :zoom="15" map-type-id="roadmap" style="width: 100%; height: 100%">
                     <GmapMarker key="user-location" :icon="require('@/static/markers/user-location.svg')" :position="center" draggable @dragend="gMapFunc($event.latLng)" />
@@ -52,6 +52,7 @@ export default {
             currentPlace: {},
             place: "",
             places: [],
+            isLoading: false,
             clusterStyle: [
                 {
                     url: "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m1.png",
@@ -125,7 +126,7 @@ export default {
     methods: {
 
         callback(results, status) {
-
+            this.isLoading = false;
             console.log(this);
             if (status == google.maps.places.PlacesServiceStatus.OK) {
 
@@ -139,6 +140,7 @@ export default {
                     place.name = temp.name;
                     place.types = temp.types;
                     place.address = temp.formatted_address;
+                    console.log(temp);
                     //place.openNow = temp.opening_hours.open_now;
 
                     place.lastReport = parseInt(Math.random() * 10 + 3) + " minuti";
@@ -161,7 +163,7 @@ export default {
         },
 
         search() {
-
+            this.isLoading = true;
             const searchText = document.getElementById('mapSearchBox').value;
             console.log("HAI CERCATO QUALCOSA:", searchText);
 
