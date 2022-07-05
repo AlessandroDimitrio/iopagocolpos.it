@@ -7,9 +7,9 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'nonaccettolacarta.it',
+    title: 'IoUsoIlPos.it',
     htmlAttrs: {
-      lang: 'en'
+      lang: 'it'
     },
     meta: [{
         charset: 'utf-8'
@@ -21,7 +21,7 @@ export default {
       {
         hid: 'description',
         name: 'description',
-        content: ''
+        content: 'IoUsoIlPos.it è il nuovo portale per segnalare attività che non accettano pagamenti con carta'
       },
       {
         name: 'format-detection',
