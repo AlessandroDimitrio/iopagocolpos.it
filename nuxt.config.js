@@ -51,6 +51,8 @@ export default {
   ],
   
   googleFonts: {
+    prefetch: true,
+    download: true,
     families: {
       Inter: true,
     }
