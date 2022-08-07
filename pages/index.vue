@@ -1,49 +1,26 @@
 <template>
-  <div class="antialiased h-screen">
+  <div class="h-screen antialiased">
     <div class="bg-teal-700">
-        <p class="mx-auto text-white py-2 font-semibold text-sm text-center">Ciao! Questo progetto è ancora in via di sviluppo. Puoi sostenerci segnalando errori o idee e <a href="">facendo una donazione per sostanere le spese</a></p>
+        <p class="py-2 mx-auto text-sm font-semibold text-center text-white">Ciao! Questo progetto è ancora in via di sviluppo. Puoi sostenerci segnalando errori o idee e <a href="">facendo una donazione per sostanere le spese</a></p>
     </div>
     <transition name="fade" appear>
       <div
-        class="fixed inset-x-0 w-full h-full z-40 bg-black bg-opacity-70"
+        class="fixed inset-x-0 z-40 w-full h-full bg-black bg-opacity-70"
         v-show="showModal"
         @click="showModal = false"
       ></div>
     </transition>
     <transition name="pop" appear>
       <div
-        class="
-          top-20
-          modal
-          z-50
-          mx-5
-          sm:mx-auto
-          absolute
-          max-w-md
-          shadow-lg
-          inset-x-0
-          p-10
-          bg-white
-          rounded-lg
-        "
+        class="absolute inset-x-0 z-50 max-w-md p-10 mx-5 bg-white rounded-lg shadow-lg top-20 modal sm:mx-auto"
         v-show="showModal"
       >
         <div
-          class="
-            bg-gradient-to-tr
-            from-teal-100
-            rounded-xl
-            mb-2
-            to-teal-600
-            w-12
-            h-12
-            flex
-            items-center
-          "
+          class="flex items-center w-12 h-12 mb-2 bg-gradient-to-tr from-teal-100 rounded-xl to-teal-600"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            class="text-white mx-auto"
+            class="mx-auto text-white"
             width="24"
             height="24"
             viewBox="0 0 24 24"
@@ -57,56 +34,45 @@
             <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
           </svg>
         </div>
-        <h3 class="font-extrabold text-2xl tracking-tighter text-teal-800">Aggiungi attività</h3>
-        <p class="text-blue-grey-500 leading-tight font-medium mt-1 text-sm">
+        <h3 class="text-2xl font-extrabold tracking-tighter text-teal-800">Aggiungi attività</h3>
+        <p class="mt-1 text-sm font-medium leading-tight text-blue-grey-500">
           Questo modulo serve per inoltrare la segnalazione di mancato uso del
           POS. E' possibile aggiungere l'attività attraverso il modulo di
           ricerca Google
         </p>
-        <p class="text-sm mt-4">Attività</p>
+        <p class="mt-4 text-sm">Attività</p>
         <input
           id="modalMapSearchBox"
           type="text"
           placeholder="Cerca attività"
-          class="
-            border border-blue-grey-300
-            focus:outline-none
-            rounded-lg
-            p-4
-            w-full
-            mt-1
-          "
+          class="w-full p-4 mt-1 border rounded-lg border-blue-grey-300 focus:outline-none"
         />
-        <p class="text-sm mt-4">Commento</p>
+        <p class="mt-4 text-sm">Commento</p>
         <textarea
           type="text"
           placeholder="Allega un commento (opzionale)"
-          class="
-            border border-blue-grey-300
-            focus:outline-none
-            rounded-lg
-            p-4
-            w-full
-            mt-1
-          "
+          class="w-full p-4 mt-1 border rounded-lg border-blue-grey-300 focus:outline-none"
         ></textarea>
-        <div class="flex flex-row space-x-2 mt-4">
+        <p class="mt-4 text-sm">E-mail</p>
+        <input
+          id="email-conferma"
+          type="text"
+          placeholder="Cerca attività"
+          class="w-full p-4 mt-1 border rounded-lg border-blue-grey-300 focus:outline-none"
+        />
+        <p class="mt-1 mb-4 text-sm font-medium leading-tight text-blue-grey-500">
+L'email serve per autenticare la segnalazione e far si che questa sia univoca.
+        </p>
+        <div class="flex flex-row mt-4 mb-4 space-x-2">
           <button
           @click="submitPlace"
-            class="bg-teal-600 font-semibold text-white px-7 py-2 rounded-md"
+            class="py-2 font-semibold text-white bg-teal-600 rounded-md px-7"
           >
             Inoltra
           </button>
           <button
           @click="showModal = false"
-            class="
-              border border-blue-grey-200
-              font-semibold
-              text-blue-grey-800
-              px-5
-              py-2
-              rounded-md
-            "
+            class="px-5 py-2 font-semibold border rounded-md border-blue-grey-200 text-blue-grey-800"
           >
             Annulla
           </button>
@@ -115,18 +81,7 @@
     </transition>
 
     <div
-      class="
-        px-5
-        py-10
-        sm:py-5
-        bg-white
-        border-b border-blue-grey-300
-        justify-between
-        flex flex-col
-        sm:flex-row
-        items-start
-        sm:items-center
-      "
+      class="flex flex-col items-start justify-between px-5 py-10 bg-white border-b sm:py-5 border-blue-grey-300 sm:flex-row sm:items-center"
     >
       <div class="flex flex-row items-center space-x-10">
         <img class="h-16" src="/pos_logo.svg" alt="" />
@@ -134,24 +89,11 @@
       <div class="flex flex-row items-center space-x-4">
         <button
           @click="showModal = !showModal"
-          class="
-            bg-teal-600
-            border-t
-            flex flex-row
-            items-center
-            space-x-3
-            border-teal-400
-            font-semibold
-            text-white
-            px-7
-            py-3
-            rounded-md
-            focus:ring-4
-          "
+          class="flex flex-row items-center py-3 space-x-3 font-semibold text-white bg-teal-600 border-t border-teal-400 rounded-md px-7 focus:ring-4"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            class="h-5 w-5"
+            class="w-5 h-5"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
@@ -164,14 +106,9 @@
           </svg>
           <p>Segnala</p>
         </button>
-        <img
-          class="h-12 w-12 rounded-md object-cover "
-          src="https://images.unsplash.com/photo-1531891437562-4301cf35b7e4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2864&q=80"
-          alt=""
-        />
       </div>
       <!-- <DonateButton></DonateButton> -->
-      <!-- <button class="mt-2 sm:mt-0 font-medium bg-black rounded-lg text-white px-6 py-2" @click="showModal = true">Contribuisci</button> -->
+      <!-- <button class="px-6 py-2 mt-2 font-medium text-white bg-black rounded-lg sm:mt-0" @click="showModal = true">Contribuisci</button> -->
     </div>
     <div class="flex flex-row h-screen">
       <StoreList
@@ -181,7 +118,7 @@
         @selected="currentPlace = $event"
         :currentPlace="currentPlace"
       ></StoreList>
-      <div class="w-full h-full flex justify-center items-center bg-blue-grey-50">
+      <div class="flex items-center justify-center w-full h-full bg-blue-grey-50">
         <GmapMap
           ref="mapRef"
           :center="{ lat: 41.89422107929427, lng: 12.436617991051996 }"
@@ -209,7 +146,7 @@
           />
         </GmapMap>
         <!-- 
-                <GMap class="h-full w-full" ref="gMap" language="it" :center="{ lat: 41.89422107929427, lng: 12.436617991051996 }" :options="{ fullscreenControl: false }" :zoom="15">
+                <GMap class="w-full h-full" ref="gMap" language="it" :center="{ lat: 41.89422107929427, lng: 12.436617991051996 }" :options="{ fullscreenControl: false }" :zoom="15">
                 </GMap>
                 -->
       </div>
