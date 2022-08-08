@@ -1,6 +1,6 @@
 <template>
   <div class="h-screen antialiased">
-    <div class="bg-teal-700">
+    <div class="bg-blue-700">
         <p class="py-2 mx-auto text-sm font-semibold text-center text-white">Ciao! Questo progetto è ancora in via di sviluppo. Puoi sostenerci segnalando errori o idee e <a href="">facendo una donazione per sostanere le spese</a></p>
     </div>
     <transition name="fade" appear>
@@ -16,7 +16,7 @@
         v-show="showModal"
       >
         <div
-          class="flex items-center w-12 h-12 mb-2 bg-gradient-to-tr from-teal-100 rounded-xl to-teal-600"
+          class="flex items-center w-12 h-12 mb-2 rounded-full bg-gradient-to-tr from-yellow-100 to-blue-600"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -34,8 +34,8 @@
             <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
           </svg>
         </div>
-        <h3 class="text-2xl font-extrabold tracking-tighter text-teal-800">Aggiungi attività</h3>
-        <p class="mt-1 text-sm font-medium leading-tight text-blue-grey-500">
+        <h3 class="text-2xl font-extrabold tracking-tighter text-blue-600">Aggiungi attività</h3>
+        <p class="mt-1 text-sm font-medium leading-tight text-gray-500">
           Questo modulo serve per inoltrare la segnalazione di mancato uso del
           POS. E' possibile aggiungere l'attività attraverso il modulo di
           ricerca Google
@@ -45,34 +45,34 @@
           id="modalMapSearchBox"
           type="text"
           placeholder="Cerca attività"
-          class="w-full p-4 mt-1 border rounded-lg border-blue-grey-300 focus:outline-none"
+          class="w-full p-4 mt-1 border border-gray-300 rounded-lg focus:outline-none"
         />
         <p class="mt-4 text-sm">Commento</p>
         <textarea
           type="text"
           placeholder="Allega un commento (opzionale)"
-          class="w-full p-4 mt-1 border rounded-lg border-blue-grey-300 focus:outline-none"
+          class="w-full p-4 mt-1 border border-gray-300 rounded-lg focus:outline-none"
         ></textarea>
         <p class="mt-4 text-sm">E-mail</p>
         <input
           id="email-conferma"
           type="text"
           placeholder="Cerca attività"
-          class="w-full p-4 mt-1 border rounded-lg border-blue-grey-300 focus:outline-none"
+          class="w-full p-4 mt-1 border border-gray-300 rounded-lg focus:outline-none"
         />
-        <p class="mt-1 mb-4 text-sm font-medium leading-tight text-blue-grey-500">
+        <p class="mt-1 mb-10 text-sm font-medium leading-tight text-gray-500">
 L'email serve per autenticare la segnalazione e far si che questa sia univoca.
         </p>
         <div class="flex flex-row mt-4 mb-4 space-x-2">
           <button
           @click="submitPlace"
-            class="py-2 font-semibold text-white bg-teal-600 rounded-md px-7"
+            class="py-2 font-semibold text-white bg-blue-600 rounded-md px-7"
           >
             Inoltra
           </button>
           <button
           @click="showModal = false"
-            class="px-5 py-2 font-semibold border rounded-md border-blue-grey-200 text-blue-grey-800"
+            class="px-5 py-2 font-semibold text-gray-800 border border-gray-200 rounded-md"
           >
             Annulla
           </button>
@@ -81,29 +81,27 @@ L'email serve per autenticare la segnalazione e far si che questa sia univoca.
     </transition>
 
     <div
-      class="flex flex-col items-start justify-between px-5 py-10 bg-white border-b sm:py-5 border-blue-grey-300 sm:flex-row sm:items-center"
+      class="flex flex-col items-start justify-between px-5 py-10 bg-white border-b border-gray-200 shadow-xl sm:py-5 sm:flex-row sm:items-center"
     >
       <div class="flex flex-row items-center space-x-10">
         <img class="h-16" src="/pos_logo.svg" alt="" />
+       <div class="space-x-5 font-semibold">
+          <a class="hover:text-blue-500 hover:underline" href="">Mappa</a>
+          <a class="hover:text-blue-500 hover:underline" href="">L'obbiettivo</a>
+          <a class="hover:text-blue-500 hover:underline" href="">Sostienici</a>
+        </div>
       </div>
       <div class="flex flex-row items-center space-x-4">
         <button
           @click="showModal = !showModal"
-          class="flex flex-row items-center py-3 space-x-3 font-semibold text-white bg-teal-600 border-t border-teal-400 rounded-md px-7 focus:ring-4"
+          class="flex flex-row items-center py-3 space-x-3 font-semibold text-white bg-blue-600 border-t border-blue-400 rounded-md px-7 focus:ring-4"
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="w-5 h-5"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <line x1="22" y1="2" x2="11" y2="13"></line>
-            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
-          </svg>
+<svg xmlns="http://www.w3.org/2000/svg" class="h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M22 13V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v12c0 1.1.9 2 2 2h8"></path>
+  <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+  <path d="M19 16v6"></path>
+  <path d="M16 19h6"></path>
+</svg>
           <p>Segnala</p>
         </button>
       </div>
@@ -118,7 +116,7 @@ L'email serve per autenticare la segnalazione e far si che questa sia univoca.
         @selected="currentPlace = $event"
         :currentPlace="currentPlace"
       ></StoreList>
-      <div class="flex items-center justify-center w-full h-full bg-blue-grey-50">
+      <div class="flex items-center justify-center w-full h-full bg-gray-50">
         <GmapMap
           ref="mapRef"
           :center="{ lat: 41.89422107929427, lng: 12.436617991051996 }"
@@ -151,6 +149,7 @@ L'email serve per autenticare la segnalazione e far si che questa sia univoca.
                 -->
       </div>
     </div>
+    <Footer></Footer>
   </div>
 </template>
 
@@ -209,15 +208,19 @@ export default {
           bounds: defaultBounds,
           componentRestrictions: { country: "it" },
           fields: ["address_components", "geometry", "icon", "name"],
+          types: ["establishment"],
           strictBounds: false,
         };
 
         var input = document.getElementById("mapSearchBox");
-        this.autocomplete = new this.google.maps.places.SearchBox(
+        this.autocomplete = new this.google.maps.places.Autocomplete(
           input,
           options
         );
         this.autocomplete.addListener("places_changed", this.search);
+
+
+  
 
         var input2 = document.getElementById("modalMapSearchBox");
         this.modalAutocomplete = new this.google.maps.places.SearchBox(
@@ -274,46 +277,66 @@ export default {
     },
     callback(results, status) {
       this.isLoading = false;
-      console.log(this);
       if (status == google.maps.places.PlacesServiceStatus.OK) {
         var bounds = new google.maps.LatLngBounds();
-        this.places = [];
+        let place = results[0];
+        // for (var i = 0; i < results.length; i++) {
+        //   let temp = results[i];
+        //   var place = {};
+        //   place.reference = temp.reference;
+        //   place.name = temp.name;
+        //   place.types = temp.types;
+        //   place.address = temp.formatted_address;
+        //   console.log(temp);
+        //   //place.openNow = temp.opening_hours.open_now;
 
-        for (var i = 0; i < results.length; i++) {
-          let temp = results[i];
-          var place = {};
-          place.reference = temp.reference;
-          place.name = temp.name;
-          place.types = temp.types;
-          place.address = temp.formatted_address;
-          console.log(temp);
-          //place.openNow = temp.opening_hours.open_now;
+        //   place.lastReport = parseInt(Math.random() * 10 + 3) + " minuti";
+        //   place.pos = parseInt(Math.random() * Math.random() * 100);
+        //   place.noPos = parseInt(Math.random() * Math.random() * 100);
 
-          place.lastReport = parseInt(Math.random() * 10 + 3) + " minuti";
-          place.pos = parseInt(Math.random() * Math.random() * 100);
-          place.noPos = parseInt(Math.random() * Math.random() * 100);
+        //   place.location = {
+        //     lat: temp.geometry.location.lat(),
+        //     lng: temp.geometry.location.lng(),
+        //   };
 
-          place.location = {
-            lat: temp.geometry.location.lat(),
-            lng: temp.geometry.location.lng(),
-          };
+        //   //Recursively loop through your coordinate list
+        //   const latLng = new google.maps.LatLng(
+        //     temp.geometry.location.lat(),
+        //     temp.geometry.location.lng()
+        //   );
+        //   bounds.extend(latLng);
 
-          //Recursively loop through your coordinate list
-          const latLng = new google.maps.LatLng(
-            temp.geometry.location.lat(),
-            temp.geometry.location.lng()
-          );
-          bounds.extend(latLng);
-
-          this.places.push(place);
+        //   this.places.push(place);
+        // }
+        if (place.geometry.viewport) {
+          this.myMap.fitBounds(place.geometry.viewport);
+        } else {
+          this.myMap.setCenter(place.geometry.location);
+          this.myMap.setZoom(17);
         }
-        this.myMap.fitBounds(bounds);
-        console.log(this.places);
+        
+        var bounds = this.myMap.getBounds();
+        
+        var north = bounds.getNorthEast().lat();
+        var east = bounds.getNorthEast().lng();
+        var west = bounds.getSouthWest().lng();
+        var south = bounds.getSouthWest().lat();
+
+        console.warn('north', north);
+        console.warn('east', east);
+        console.warn('west', west);
+        console.warn('south', south);
+
+        fetch('https://plankton-app-p6yje.ondigitalocean.app/activity?' + new URLSearchParams({
+              north: north,
+              east: east,
+              west: west,
+              south: south,
+          })).then(res => res.json().then(response => console.error(response)));
       }
     },
     modalSearch() {
       const searchText = document.getElementById("modalMapSearchBox").value;
-      console.log("HAI CERCATO QUALCOSA:", searchText);
 
       if (this.google && this.myMap) {
         const query = searchText ? searchText : this.defaultQuery;
@@ -328,10 +351,11 @@ export default {
         service.textSearch(request, this.callback);
       }
     },
+
+
     search() {
       this.isLoading = true;
       const searchText = document.getElementById("mapSearchBox").value;
-      console.log("HAI CERCATO QUALCOSA:", searchText);
 
       if (this.google && this.myMap) {
         const query = searchText ? searchText : this.defaultQuery;
