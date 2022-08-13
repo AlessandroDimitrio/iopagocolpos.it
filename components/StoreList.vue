@@ -1,53 +1,31 @@
 <template>
-  <div
-    class="flex flex-col w-3/5 h-full p-5 space-y-5 overflow-y-scroll border-r border-gray-200 bg-gray-50 pb-96"
-  >
+  <div class="flex flex-col w-3/5 h-full p-5 space-y-5 overflow-y-scroll border-r border-gray-200 bg-gray-50 pb-96">
     <div class="p-10 bg-gray-200 rounded-xl">
-            <p class="text-3xl font-extrabold tracking-tighter text-blue-600">
-      👋 <br/>Benvenuto!
-    </p>
-    <p class="mt-2 text-base text-gray-600">
-      IoUsoIlPos.it è il primo portale per <strong>segnalare</strong> attività che <strong>non accettano
-      pagamenti con carta</strong>.
-    </p>
+      <p class="text-3xl font-extrabold tracking-tighter text-blue-600">
+        👋 <br />Benvenuto!
+      </p>
+      <p class="mt-2 text-base text-gray-600">
+        IoUsoIlPos.it è il primo portale per <strong>segnalare</strong> attività che <strong>non accettano pagamenti con carta</strong>.
+      </p>
     </div>
     <div class="flex items-center justify-between">
-      <input
-        id="mapSearchBox"
-        type="text"
-        placeholder="Cerca locale"
-        class="w-full px-6 py-3 bg-white border border-gray-200 rounded-lg shadow-sm focus:outline-none"
-      />
-      <button
-        class="h-full px-6 py-2 ml-3 font-medium font-semibold bg-white border border-gray-200 rounded-lg shadow-sm"
-        @click="$emit('search')"
-      >
+      <input id="mapSearchBox" type="text" placeholder="Cerca locale" class="w-full px-6 py-3 bg-white border border-gray-200 rounded-lg shadow-sm focus:outline-none" />
+      <button class="h-full px-6 py-2 ml-3 font-semibold bg-white border border-gray-200 rounded-lg shadow-sm" @click="$emit('search')">
         Cerca
       </button>
     </div>
     <div v-if="isLoading">
       <div id="loading" class="mx-auto mt-20"></div>
     </div>
-    <div
-      v-else
-      v-for="(place, i) in places"
-      :key="i"
-      class="flex flex-row items-center justify-between p-5 transition-all ease-in rounded-md cursor-pointer hover:bg-gray-50 duration-350"
-      :class="selectedClass(place.reference)"
-      @click="$emit('selected', place)"
-    >
+    <div v-else v-for="(place, i) in places" :key="i" class="flex flex-row items-center justify-between p-5 transition-all ease-in rounded-md cursor-pointer hover:bg-gray-50 duration-350" :class="selectedClass(place.google_id)" @click="$emit('selected', place)">
       <div class="flex flex-col">
         <div class="flex flex-row">
           <p class="font-bold text-gray-800">{{ place.name }}</p>
         </div>
         <p class="text-gray-500">{{ place.address }}</p>
-        <p>Segnalazione di {{ place.lastReport }} fa</p>
+        <p>Segnalazione di {{ lastReview(place.last_review_timestamp) }}</p>
       </div>
-      <Doughnut
-        class="w-16"
-        :chart-options="chartOptions"
-        :chart-data="chartData(i)"
-      />
+      <div class="bg-blue-50 rounded-xl p-4 font-semibold"><span><b>{{ place.reviews_count || "0" }}</b> {{ (place.reviews_count == 1) ? "segnalazione" : "segnalazioni" }}</span></div>
     </div>
   </div>
 </template>
@@ -68,7 +46,11 @@ ChartJS.register(Title, Tooltip, Legend, ArcElement, CategoryScale);
 
 export default {
   name: "StoreList",
-  props: ["places", "currentPlace", "isLoading"],
+  props: {
+    places: { default: [] },
+    currentPlace: { default: null },
+    isLoading: { default: false }
+  },
   components: { Doughnut },
   data() {
     return {
@@ -88,6 +70,34 @@ export default {
     };
   },
   methods: {
+    lastReview(ts) {
+      // a and b are javascript Date objects
+      function dateDiffInMilliseconds(a, b) {
+        // Discard the time and time-zone information.
+        const utc1 = Date.UTC(a.getFullYear(), a.getMonth(), a.getDate());
+        const utc2 = Date.UTC(b.getFullYear(), b.getMonth(), b.getDate());
+        return Math.floor((utc2 - utc1));
+      }
+
+      const a = new Date(ts), b = new Date();
+      let difference = dateDiffInMilliseconds(a, b);
+
+      const _MS_PER_MINUTE = 1000 * 60;
+      const _MS_PER_HOUR = _MS_PER_MINUTE * 60;
+      const _MS_PER_DAY = _MS_PER_HOUR * 24;
+
+      const d = difference / _MS_PER_DAY;
+      difference -= (d * _MS_PER_DAY);
+      const h = difference / _MS_PER_HOUR;
+      difference -= (d * _MS_PER_HOUR);
+      const m = difference / _MS_PER_MINUTE + 1;
+
+      if (d == 1) return `1 giorno fa`;
+      else if (d > 0) return `${d} giorni fa`;
+      else if (h == 1) return `1 ora fa`;
+      else if (h > 0) return `${h} ore fa`;
+      else return `${m} minuti fa`
+    },
     chartData(i) {
       return {
         labels: ["Pos", "NoPos"],
@@ -100,11 +110,8 @@ export default {
       };
     },
     selectedClass(reference) {
-      if (
-        this.currentPlace.hasOwnProperty("reference") &&
-        this.currentPlace.reference == reference
-      )
-        return "bg-white border-indigo-600 border ring ring-blue-500 ring-opacity-50";
+      if (this.currentPlace.hasOwnProperty("google_id") && this.currentPlace.google_id == reference)
+        return "bg-white border-blue-700 border ring ring-blue-700 ring-opacity-40";
       return "shadow-sm bg-white border border-gray-200";
     },
   },

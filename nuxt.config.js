@@ -3,42 +3,44 @@ export default {
   ssr: true,
 
   // Target: https://go.nuxtjs.dev/config-target
-  target: 'static',
+  target: "static",
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'IoUsoIlPos.it',
+    title: "IoUsoIlPos.it",
     htmlAttrs: {
-      lang: 'it'
+      lang: "it",
     },
-    meta: [{
-        charset: 'utf-8'
+    meta: [
+      {
+        charset: "utf-8",
       },
       {
-        name: 'viewport',
-        content: 'width=device-width, initial-scale=1'
+        name: "viewport",
+        content: "width=device-width, initial-scale=1",
       },
       {
-        hid: 'description',
-        name: 'description',
-        content: 'IoUsoIlPos.it è il nuovo portale per segnalare attività che non accettano pagamenti con carta'
+        hid: "description",
+        name: "description",
+        content:
+          "IoUsoIlPos.it è il nuovo portale per segnalare attività che non accettano pagamenti con carta",
       },
       {
-        name: 'format-detection',
-        content: 'telephone=no'
-      }
+        name: "format-detection",
+        content: "telephone=no",
+      },
     ],
-    link: [{
-      rel: 'icon',
-      type: 'image/x-icon',
-      href: '/favicon.ico'
-    }]
+    link: [
+      {
+        rel: "icon",
+        type: "image/x-icon",
+        href: "/favicon.ico",
+      },
+    ],
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
-  css: [
-    '@/static/global.css',
-  ],
+  css: ["@/static/global.css"],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -46,39 +48,42 @@ export default {
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
     // https://go.nuxtjs.dev/tailwindcss
-    '@nuxtjs/tailwindcss',
-      '@nuxtjs/google-fonts'
+    "@nuxtjs/tailwindcss",
+    "@nuxtjs/google-fonts",
   ],
-  
+
   googleFonts: {
     prefetch: true,
     download: true,
     families: {
       Inter: true,
-    }
+    },
   },
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: [],
+  modules: ["@nuxtjs/axios"],
 
   /*
    ** Customize the progress-bar color
    */
   loading: {
-    color: "#3b8070"
+    color: "#3b8070",
   },
 
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [{
-    src: "~/plugins/google-maps",
-    ssr: true
-  }],
+  plugins: [
+    {
+      src: "~/plugins/google-maps",
+      ssr: true,
+    },
+  ],
 
+  axios: {},
   /*
    ** Build configuration
    */
   build: {
-    transpile: [/^vue2-google-maps($|\/)/]
-  }
-}
+    transpile: [/^vue2-google-maps($|\/)/],
+  },
+};
