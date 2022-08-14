@@ -1,7 +1,7 @@
 <template>
-  <div class="flex flex-col w-3/5 h-full p-5 space-y-5 overflow-y-scroll border-r border-gray-200 bg-gray-50 pb-96">
-    <div class="p-10 bg-gray-200 rounded-xl">
-      <p class="text-3xl font-extrabold tracking-tighter text-blue-600">
+  <div class="flex flex-col w-full h-full p-5 space-y-5 overflow-y-scroll border-r border-gray-300 sm:w-3/5 bg-gray-50 pb-96">
+    <div class="p-10 border border-gray-300 rounded-xl">
+      <p class="text-3xl font-extrabold tracking-tighter text-blue-grey-800">
         👋 <br />Benvenuto!
       </p>
       <p class="mt-2 text-base text-gray-600">
@@ -9,8 +9,15 @@
       </p>
     </div>
     <div class="flex items-center justify-between">
-      <input id="mapSearchBox" type="text" placeholder="Cerca locale" class="w-full px-6 py-3 bg-white border border-gray-200 rounded-lg shadow-sm focus:outline-none" />
-      <button class="h-full px-6 py-2 ml-3 font-semibold bg-white border border-gray-200 rounded-lg shadow-sm" @click="$emit('search')">
+      <div class="flex items-center flex-grow px-6 py-3 space-x-2 bg-white border border-gray-300 rounded-lg shadow-sm ">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 text-gray-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="11" cy="11" r="8"></circle>
+        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+      </svg>
+        <input id="mapSearchBox" type="text" placeholder="Cerca locale" class="w-full focus:outline-none" />
+      </div>
+    
+      <button class="h-full px-6 py-2 ml-3 font-semibold bg-white border border-gray-300 rounded-lg shadow-sm" @click="$emit('search')">
         Cerca
       </button>
     </div>
@@ -25,7 +32,7 @@
         <p class="text-gray-500">{{ place.address }}</p>
         <p>Segnalazione di {{ lastReview(place.last_review_timestamp) }}</p>
       </div>
-      <div class="bg-blue-50 rounded-xl p-4 font-semibold"><span><b>{{ place.reviews_count || "0" }}</b> {{ (place.reviews_count == 1) ? "segnalazione" : "segnalazioni" }}</span></div>
+      <div class="p-4 font-semibold text-red-700 bg-red-50 rounded-xl"><span><b>{{ place.reviews_count || "0" }}</b> <!-- {{ (place.reviews_count == 1) ? "segnalazione" : "segnalazioni" }} --></span></div>
     </div>
   </div>
 </template>
@@ -112,7 +119,7 @@ export default {
     selectedClass(reference) {
       if (this.currentPlace.hasOwnProperty("google_id") && this.currentPlace.google_id == reference)
         return "bg-white border-blue-700 border ring ring-blue-700 ring-opacity-40";
-      return "shadow-sm bg-white border border-gray-200";
+      return "shadow-sm bg-white border border-gray-300";
     },
   },
 };
