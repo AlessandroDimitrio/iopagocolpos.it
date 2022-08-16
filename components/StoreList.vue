@@ -24,7 +24,7 @@
     <div v-if="isLoading">
       <div id="loading" class="mx-auto mt-20"></div>
     </div>
-    <div v-else v-for="(place, i) in places" :key="i" class="flex flex-row items-center justify-between p-5 transition-all ease-in rounded-md cursor-pointer hover:bg-gray-50 duration-350" :class="selectedClass(place.google_id)" @click="$emit('selected', place)">
+    <NuxtLink :to="'/attività/' + place.google_id" v-else v-for="(place, i) in places" :key="i" class="flex flex-row items-center justify-between p-5 transition-all ease-in rounded-md cursor-pointer hover:bg-gray-50 duration-350" :class="selectedClass(place.google_id)" @click="$emit('selected', place)">
       <div class="flex flex-col">
         <div class="flex flex-row">
           <p class="font-bold text-gray-800">{{ place.name }}</p>
@@ -33,7 +33,7 @@
         <p>Segnalazione di {{ lastReview(place.last_review_timestamp) }}</p>
       </div>
       <div class="p-4 font-semibold text-red-700 bg-red-50 rounded-xl"><span><b>{{ place.reviews_count || "0" }}</b> <!-- {{ (place.reviews_count == 1) ? "segnalazione" : "segnalazioni" }} --></span></div>
-    </div>
+    </NuxtLink>
   </div>
 </template>
 

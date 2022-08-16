@@ -1,6 +1,6 @@
 <template>
   <div class="h-screen antialiased">
-    <div class="sticky top-0 left-0 bg-blue-grey-700 z-50">
+    <div class="sticky top-0 left-0 z-50 bg-blue-grey-700">
       <p class="py-2 mx-auto text-sm font-semibold text-center text-white">Ciao! Questo progetto è ancora in via di sviluppo. Puoi sostenerci segnalando errori o idee e <a href="">facendo una donazione per sostanere le spese</a></p>
     </div>
     <transition name="fade" appear>
@@ -14,9 +14,9 @@
       <div class="flex flex-row items-center space-x-10">
         <img class="h-16" src="/pos_logo.svg" alt="" />
         <div class="hidden space-x-5 font-semibold sm:flex">
-          <a class="hover:text-blue-grey-500 hover:underline" href="">Mappa</a>
-          <a class="hover:text-blue-grey-500 hover:underline" href="">L'obbiettivo</a>
-          <a class="hover:text-blue-grey-500 hover:underline" href="">Sostienici</a>
+          <nuxt-link  to="/" class="hover:text-blue-grey-500 hover:underline" href="">Mappa</nuxt-link>
+          <nuxt-link to="/sostienici" class="hover:text-blue-grey-500 hover:underline" href="">L'obbiettivo</nuxt-link>
+          <nuxt-link  to="/sostienici" class="hover:text-blue-grey-500 hover:underline" href="">Sostienici</nuxt-link>
         </div>
       </div>
       <div class="flex-row items-center hidden space-x-4 sm:flex">
@@ -32,7 +32,7 @@
       </div>
     </header>
 
-    <section class="flex flex-row justify-between py-4 mx-3 bg-white border-t border-b border-gray-200 sm:hidden z-30">
+    <section class="z-30 flex flex-row justify-between py-4 mx-3 bg-white border-t border-b border-gray-200 sm:hidden">
       <button @click="showModal = !showModal" class="flex flex-row items-center py-3 space-x-3 font-semibold text-white transition duration-200 border-t rounded-md bg-blue-grey-600 border-blue-grey-400 hover:bg-blue-grey-700 px-7 focus:ring-4">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M22 13V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v12c0 1.1.9 2 2 2h8"></path>
@@ -62,7 +62,7 @@
         <p>Mostra lista</p>
       </button>
     </section>
-    <div class="flex flex-row h-screen z-30">
+    <div class="z-30 flex flex-row h-screen">
       <StoreList v-show="listToggle" :isLoading="isLoading" :places="places" @search="search" @selected="currentPlace = $event" :currentPlace="currentPlace"></StoreList>
       <div v-show="mapToggle" class="flex items-center justify-center w-full h-full bg-gray-50">
         <GmapMap :center="center" ref="mapRef" :options="{ disableDefaultUI: true }" :zoom="17" :streetViewControl="false" map-type-id="roadmap" style="width: 100%; height: 100%">
@@ -78,7 +78,7 @@
 import { gmapApi } from "vue2-google-maps";
 
 let server_url = "https://plankton-app-p6yje.ondigitalocean.app";
-server_url = "http://localhost:3002";
+//server_url = "http://localhost:3002";
 export default {
   name: "Home",
   data() {
