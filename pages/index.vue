@@ -14,9 +14,9 @@
       <div class="flex flex-row items-center space-x-10">
         <img class="h-16" src="/pos_logo.svg" alt="" />
         <div class="hidden space-x-5 font-semibold sm:flex">
-          <nuxt-link  to="/" class="hover:text-blue-grey-500 hover:underline" href="">Mappa</nuxt-link>
+          <nuxt-link to="/" class="hover:text-blue-grey-500 hover:underline" href="">Mappa</nuxt-link>
           <nuxt-link to="/sostienici" class="hover:text-blue-grey-500 hover:underline" href="">L'obbiettivo</nuxt-link>
-          <nuxt-link  to="/sostienici" class="hover:text-blue-grey-500 hover:underline" href="">Sostienici</nuxt-link>
+          <nuxt-link to="/sostienici" class="hover:text-blue-grey-500 hover:underline" href="">Sostienici</nuxt-link>
         </div>
       </div>
       <div class="flex-row items-center hidden space-x-4 sm:flex">
@@ -63,11 +63,11 @@
       </button>
     </section>
     <div class="z-30 flex flex-row h-screen">
-      <StoreList v-show="listToggle" :isLoading="isLoading" :places="places" @search="search" @selected="currentPlace = $event" :currentPlace="currentPlace"></StoreList>
+      <StoreList v-show="listToggle" :isLoading="isLoading" :places="orderedPlaces" @search="search" @selected="currentPlace = $event" :currentPlace="currentPlace"></StoreList>
       <div v-show="mapToggle" class="flex items-center justify-center w-full h-full bg-gray-50">
         <GmapMap :center="center" ref="mapRef" :options="{ disableDefaultUI: true }" :zoom="17" :streetViewControl="false" map-type-id="roadmap" style="width: 100%; height: 100%">
           <GmapMarker key="user-location" :icon="require('@/static/markers/user-location.svg')" :position="center" draggable @dragend="gMapFunc($event.latLng)" />
-          <GmapMarker v-for="place in places" :key="place.google_id" :icon="markerIcon(place.google_id)" :position="{ lat: parseFloat(place.latitude), lng: parseFloat(place.longitude) }" @click="currentPlace = place" />
+          <GmapMarker v-for="place in orderedPlaces" :key="place.google_id" :icon="markerIcon(place.google_id)" :position="{ lat: parseFloat(place.latitude), lng: parseFloat(place.longitude) }" @click="currentPlace = place" />
         </GmapMap>
       </div>
     </div>
@@ -78,7 +78,7 @@
 import { gmapApi } from "vue2-google-maps";
 
 let server_url = "https://plankton-app-p6yje.ondigitalocean.app";
-//server_url = "http://localhost:3002";
+// server_url = "http://localhost:3002";
 export default {
   name: "Home",
   data() {
@@ -165,6 +165,38 @@ export default {
       if (this && this.myMap) return this.myMap.getBounds();
       return null;
     },
+    orderedPlaces() {
+      function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
+        var R = 6371; // Radius of the earth in km
+        var dLat = deg2rad(lat2 - lat1);  // deg2rad below
+        var dLon = deg2rad(lon2 - lon1);
+        var a =
+          Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+          Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
+          Math.sin(dLon / 2) * Math.sin(dLon / 2)
+          ;
+        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        var d = R * c; // Distance in km
+        d = parseInt(d * 1000)
+        return d / 1000;
+      }
+
+      function deg2rad(deg) {
+        return deg * (Math.PI / 180)
+      }
+
+      let ordPlcs = [];
+      for (const i in this.places) {
+        const place = this.places[i];
+        const distance = parseFloat(getDistanceFromLatLonInKm(place.latitude, place.longitude, this.center.lat, this.center.lng));
+        ordPlcs[i] = {
+          ...place,
+          distance: distance
+        }
+      }
+
+      return ordPlcs.sort((a, b) => a.distance - b.distance)
+    }
   },
 
   methods: {
@@ -217,7 +249,7 @@ export default {
       var east = bounds.getNorthEast().lng();
       var west = bounds.getSouthWest().lng();
       var south = bounds.getSouthWest().lat();
-      this.$axios.$get(`${server_url}/activity`, {
+      this.$axios.$get(`${server_url}/activity/reviews`, {
         params: {
           north: north,
           east: east,

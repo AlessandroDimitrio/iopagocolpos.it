@@ -50,7 +50,7 @@
 
 <script>
 let server_url = "https://plankton-app-p6yje.ondigitalocean.app";
-server_url = "http://localhost:3002";
+// server_url = "http://localhost:3002";
 
 export default {
     name: "ReviewPopup",
@@ -131,7 +131,7 @@ export default {
         },
         postReview() {
             let self = this;
-            this.$axios.$post(`${server_url}/review`, {
+            this.$axios.$post(`${server_url}/activity/review`, {
                 email: self.email,
                 notes: self.notes,
                 activity: self.formattedSelectedActivity
