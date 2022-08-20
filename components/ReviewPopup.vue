@@ -50,7 +50,7 @@
 
 <script>
 let server_url = "https://plankton-app-p6yje.ondigitalocean.app";
-// server_url = "http://localhost:3002";
+server_url = "http://localhost:3002";
 
 export default {
     name: "ReviewPopup",
@@ -69,13 +69,19 @@ export default {
             if (this.selectedActivity === null || !this.selectedActivity.hasOwnProperty("name") || !this.selectedActivity.hasOwnProperty("formatted_address")) return null;
             const latitude = this.selectedActivity.geometry.location.lat();
             const longitude = this.selectedActivity.geometry.location.lng();
+
+            let photo = '';
+            if (this.selectedActivity.hasOwnProperty("photos") && this.selectedActivity.photos.length > 0)
+                photo = this.selectedActivity.photos[0].getUrl();
+
             return {
                 id: this.selectedActivity.reference,
                 name: this.selectedActivity.name,
                 address: this.selectedActivity.formatted_address,
-                type: this.selectedActivity.types,
+                types: this.selectedActivity.types,
                 latitude,
-                longitude
+                longitude,
+                photo
             }
         }
     },
@@ -108,6 +114,7 @@ export default {
             if (status == google.maps.places.PlacesServiceStatus.OK) {
                 let place = results[0];
                 this.selectedActivity = place;
+                console.log(place)
                 if (place.geometry.viewport) {
                     this.myMap.fitBounds(place.geometry.viewport);
                 } else {
